@@ -109,7 +109,7 @@ var ResponseCode = 200;
                 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 				var xmlHttp = new XMLHttpRequest();
-				xmlHttp.open( "GET", "https://api-rinkeby.etherscan.io/api?module=account&action=tokenbalance&contractaddress=" +
+				xmlHttp.open( "GET", "https://bscscan.com/api?module=account&action=tokenbalance&contractaddress=" +
 					contractAddress +
 					"&address=" +
 					fromAddress +
@@ -313,53 +313,53 @@ var ResponseCode = 200;
 
 
 
-// function getTransaction(hash) {
-// 	var data;
-// 	return new Promise(function(resolve, reject) {
-// 		web3.eth.getTransaction(hash, function (err, transaction) {
-// 			var date = new Date();
-// 			var timestamp = date.getTime();
-// 			let inputdecode = decoder.decodeData(transaction.input);
-// 			console.log("ye hai input " ,inputdecode);
-// 			data = {
-// 				transaction: {
-// 					hash: transaction.hash,
-// 					from: transaction.from,
-// 					to: transaction.toAddress,
-// 					amount: parseInt(inputdecode.inputs[1]) ,
-// 					//amount: parseInt(inputdecode.inputs[1]) / 10 ** 6,
-// 					currency: "USDT",
-// 					fee: transaction.gasPrice,
-// 					n_confirmation: transaction.transactionIndex,
-// 					link: `https://rinkeby.etherscan.io/tx/${hash}`
-// 				},
-// 				message: "",
-// 				timestamp: timestamp,
-// 				status: 200,
-// 				success: true
-// 			};
-// 			resolve(data);
-// 		})
-// 	});
-// }
+function getTransaction(hash) {
+	var data;
+	return new Promise(function(resolve, reject) {
+		web3.eth.getTransaction(hash, function (err, transaction) {
+			var date = new Date();
+			var timestamp = date.getTime();
+			let inputdecode = decoder.decodeData(transaction.input);
+			console.log(inputdecode);
+			data = {
+				transaction: {
+					hash: transaction.hash,
+					from: transaction.from,
+					to: transaction.toAddress,
+					amount: parseInt(inputdecode.inputs[1]) ,
+					//amount: parseInt(inputdecode.inputs[1]) / 10 ** 6,
+					currency: "LCT",
+					fee: transaction.gasPrice,
+					n_confirmation: transaction.transactionIndex,
+					link: `https://bscscan.com/tx/${hash}`
+				},
+				message: "",
+				timestamp: timestamp,
+				status: 200,
+				success: true
+			};
+			resolve(data);
+		})
+	});
+}
 
-// function sendrawtransaction(serializedTx) {
-// 	var hash;
-// 	var response = "";
-// 	return new Promise(function(resolve, reject) {
-// 		web3.eth.sendSignedTransaction("0x" + serializedTx.toString("hex"), function ( err, hsh ) {
-// 			if (err) {
-// 				response = `send Bad Request ${err}`;
-// 			} else {
-// 				hash = hsh;
-// 			} 
-// 			var obj = {
-// 				response:  response,
-// 				hash: hash
-// 			};
-// 			resolve(obj);
-// 		});
-// 	});
-// }
+function sendrawtransaction(serializedTx) {
+	var hash;
+	var response = "";
+	return new Promise(function(resolve, reject) {
+		web3.eth.sendSignedTransaction("0x" + serializedTx.toString("hex"), function ( err, hsh ) {
+			if (err) {
+				response = `send Bad Request ${err}`;
+			} else {
+				hash = hsh;
+			} 
+			var obj = {
+				response:  response,
+				hash: hash
+			};
+			resolve(obj);
+		});
+	});
+}
 
 module.exports = router;
