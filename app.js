@@ -10,9 +10,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 const cors = require('cors');
-app.use(cors({
-    origin: '*'
-}));
+app.use(cors({credentials: true, origin: 'https://lctoken.net'}));
 
 //var eth = require('./testeth');
 // var xct = require('./controllers/Cryptochats/xct');
