@@ -9,6 +9,11 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+const cors = require('cors');
+app.use(cors({
+    origin: '*'
+}));
+
 //var eth = require('./testeth');
 // var xct = require('./controllers/Cryptochats/xct');
 // var btc = require('./controllers/Bitcoin/btc');
@@ -95,7 +100,7 @@ app.post('*', function (req, res) {
 
 if (module === require.main) {
 
-    var server = app.listen(process.env.PORT || 5000, function () {
+    var server = app.listen(process.env.PORT || 5002, function () {
         var port = server.address().port;
         console.log('App listening on port %s', port);
     });
